@@ -24,3 +24,18 @@ mergeSortedArray.c
 	明显算法二的时间复杂度更低，为O(lenA+lenB),其中lenA、lenB分别是LA和LB的长度
 	本函数实现算法二
 	2015/05/02
+
+ArrayListExamples.java
+	使用ArrayList这个类的各种方法
+	来自：http://examples.javacodegeeks.com/core-java/util/arraylist/arraylist-in-java-example-how-to-use-arraylist/
+	2015/05/02
+
+LinkedListExample.java
+	使用LinkedList这个类的各种方法
+	来自：http://examples.javacodegeeks.com/core-java/util/linkedlist/java-linkedlist-example/
+	2015/05/02
+
+
+
+
+
