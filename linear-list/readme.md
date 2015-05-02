@@ -21,7 +21,6 @@ mergeSortedArray.c
 	算法二：两个线性表为LA和LB，设两个指针i和j分别指向LA和LB中的元素，如i当前指向的元素是a，j当前指向的元素是b，则应当插入到LC中的元素c为
 	c =  a,  当a<=b时
 	c =  b,  当a>b时
-	
 	明显算法二的时间复杂度更低，为O(lenA+lenB),其中lenA、lenB分别是LA和LB的长度
 	本函数实现算法二
 	2015/05/02
