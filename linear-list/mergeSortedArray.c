@@ -5,7 +5,7 @@
 //c	=  b,  当a>b时
 
 //明显算法二的时间复杂度更低，为O(lenA+lenB),其中lenA、lenB分别是LA和LB的长度
-
+//本函数实现算法二
 
 //如何命名，才能最好的体现出函数的作用
 //如何才能让该函数适用于各种类型的数组
@@ -14,48 +14,37 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+struct array{
+	int* starter;	//数组起始指针
+	int  len;		//数组长度
+};
+
+
 //LA和LB为需要合并的两个数组，LC为合并之后的数组
-void mergeSortedArray(int* LA, int* LB, int* LC)
+struct array mergeSortedArray(int* LA, int lenA, int* LB, int lenB)
 {
-	int lenA,lenB;
 	int i,j;
-	printf("int 类型的初始值为%d\n",lenA);
-	for(i=0;i<20;i++)printf("%d ",LA[i]); printf("\n");
-	
-	
-	lenA = 0;
-	lenB = 0;
-	while (*(LA+lenA*sizeof(int))!='\0') lenA++;
-	while (*(LB+lenB*sizeof(int))!='\0') lenB++;	//算到的lenA是LA的绝对长度，即{1,2,3}对应的len为3
-	printf("lenA=%d,lenB=%d\n",lenA,lenB);	
-	lenA = 0;
-	lenB = 0;
-	while (LA[lenA]!='\0') lenA++;
-	while (LB[lenB]!='\0') lenB++;	//算到的lenA是LA的绝对长度，即{1,2,3}对应的len为3
-	printf("lenA=%d,lenB=%d\n",lenA,lenB);	
-	
-	
-	LC = (int*) malloc((lenA+lenB)*sizeof(int));	//给LC分配长度为(lenA+lenB)*sizeof(int)的内存空间
-	if (LC == '\0') {printf("动态分配数组地址失败\n");	return;}
-	
+	struct array mergedArray;
+	mergedArray.len = lenA+lenB;
+	mergedArray.starter = malloc(mergedArray.len*sizeof(int));	//给LC分配长度为(lenA+lenB)*sizeof(int)的内存空间
+
+	if (mergedArray.starter == '\0') {printf("动态分配数组地址失败\n");	return mergedArray;}
 	for(i=0,j=0;i<lenA&&j<lenB;)
 	{
 		if(*(LA+i)<=*(LB+j))	//如果LA中的数小，就把LA中的数放入LC中 
 		{
-			*(LC+i+j) = *(LA+i);
+			*(mergedArray.starter+i+j) = *(LA+i);
 			i++;
 		}
 		else					//如果LB中的数小，就把LB中的数放入LC中
 		{
-			*(LC+i+j) = *(LB+j);
+			*(mergedArray.starter+i+j) = *(LB+j);
 			j++;
 		}
 	}
-	printf("i=%d,j=%d\n",i,j);
-	while(i<lenA) { *(LC+i+j) = *(LA+i); i++;}
-	while(j<lenB) {	*(LC+i+j) = *(LB+j); j++;}
-	for(i=0;i<10;i++) printf("%d  ",LC[i]);
-	printf("\n");
+	while(i<lenA) { *(mergedArray.starter+i+j) = *(LA+i); i++;}
+	while(j<lenB) {	*(mergedArray.starter+i+j) = *(LB+j); j++;}
+	return mergedArray;	
 }
 
 
@@ -64,9 +53,9 @@ void main()
 {
 	int LA[5]={1,2,3,4,5};
 	int LB[5]={1,7,8,9,10};
-	int* LC;
-	mergeSortedArray(LA,LB,LC);
+	struct array mergedArray;
+	mergedArray = mergeSortedArray(LA,5,LB,5);
 	int i;
-	for(i=0;i<10;i++) printf("%d  ",LC[i]);
+	for(i=0;i<mergedArray.len;i++) printf("%d  ",mergedArray.starter[i]);
 	printf("\n");
 }
